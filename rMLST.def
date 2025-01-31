@@ -1,0 +1,23 @@
+Bootstrap: docker
+From: python:3.10-slim
+
+%post
+    # Install required Python packages
+    pip install requests
+
+    # Install ps required by Nextflow
+    apt-get update && apt-get install -y procps wget
+
+    # Create cirectory for rMLST
+    mkdir -p /op/rMLST
+
+    # Download rMLST upload script (uploads sequence file to rMLST server)
+    wget https://gist.githubusercontent.com/kjolley/703fa2f00c3b2abeef9242fa193ea901/raw/b40d8f999b675d40a48078d0a58302d16df97b04/species_api_upload.py
+    mv species_api_upload.py /opt/rMLST/species_api_upload.py
+
+%environment
+    PATH=$PATH:/opt/rMLST
+      
+%runscript
+    # Define the default command that will run when the container is executed
+    exec "$@"
