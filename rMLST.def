@@ -8,7 +8,7 @@ From: python:3.10-slim
     # Install ps required by Nextflow
     apt-get update && apt-get install -y procps wget
 
-    # Create cirectory for rMLST
+    # rMLST directory
     mkdir -p /op/rMLST
 
     # Download rMLST upload script (uploads sequence file to rMLST server)
@@ -19,5 +19,4 @@ From: python:3.10-slim
     PATH=$PATH:/opt/rMLST
       
 %runscript
-    # Define the default command that will run when the container is executed
     exec "$@"
